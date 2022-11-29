@@ -1,17 +1,21 @@
 import { useState } from 'react'
 
+const StatisticLine = (props) => (
+  <div>{props.text} {props.value}</div>
+)
+
 const Statistics = props => {
   if(props.good === 0 && props.neutral === 0 && props.bad === 0) {
     return <div>No feedback given.</div>
   }
   return (
   <div>
-    good {props.good}<br/>
-    neutral {props.neutral}<br/>
-    bad {props.bad}<br/>
-    all {props.good + props.neutral + props.bad}<br/>
-    average {props.average}<br/>
-    positive {props.positive} %
+    <StatisticLine text="good" value={props.good} />
+    <StatisticLine text="neutral" value={props.neutral} />
+    <StatisticLine text="bad" value={props.bad} />
+    <StatisticLine text="all" value={props.good + props.neutral + props.bad} />
+    <StatisticLine text="average" value={props.average} />
+    <StatisticLine text="positive" value={props.positive} />
   </div>
   )
 }
@@ -28,7 +32,7 @@ const App = () => {
   const [bad, setBad] = useState(0)
   const all = good + neutral + bad
   const average = good + bad * -1 / all
-  const positive = good / all * 100
+  const positive = good / all * 100 + ' %'
 
   const setToGood = newGood => {
     console.log('good now', newGood)
