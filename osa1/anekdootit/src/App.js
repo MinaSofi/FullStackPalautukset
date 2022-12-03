@@ -6,6 +6,10 @@ const Button = (props) => (
   </button>
 )
 
+const DisplayedVotes = props => {
+  return <p>has {props.voted} votes</p>
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -17,17 +21,44 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.'
   ]
    
+  const votes = new Uint8Array(anecdotes.length)
+  const [allVotes, setAllVotes] = useState(votes)
   const [selected, setSelected] = useState(0)
+  const [voted, setVoted] = useState(0)
+  const [mostVoted, setMostVoted] = useState(0)
+  const [popularAnecdote, setPopularAnecdote] = useState(0)
 
   const setToSelected = newSelect => {
     console.log('selected now ', newSelect)
     setSelected(newSelect)
+    setVoted(allVotes[newSelect])
+  }
+  const setToVoted = newVote => {
+    const totalVotes = [...allVotes]
+    newVote += 1
+    totalVotes[selected] = newVote
+    console.log('voted ', newVote, ' times')
+    console.log('votes: ', votes)
+    console.log('total votes: ', totalVotes)
+    setVoted(newVote)
+    setAllVotes(totalVotes)
+    if(newVote > mostVoted) {
+      setMostVoted(newVote)
+      setPopularAnecdote(selected)
+    }
   }
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}<br/>
-      <Button handleClick={() => setToSelected(Math.floor(Math.random() * anecdotes.length))} text="anecdote" />
+      <DisplayedVotes voted={voted} />
+      <Button handleClick={() => setToVoted(voted)} text="vote" />
+      <Button handleClick={() => setToSelected(Math.floor(Math.random() 
+        * anecdotes.length))} text="anecdote" />
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[popularAnecdote]}<br/>
+      <DisplayedVotes voted={mostVoted} />
     </div>
   )
 }
