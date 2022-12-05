@@ -52,10 +52,9 @@ const App = () => {
       }
 
       const Total = () => {
-        var total = 0
-        info.map(d => (
-          total += d.exercises
-        ))
+        const total = info.reduce(
+          (s, p) => s + p.exercises, 0,
+        );
         return (
           <div>
             <p>Number of exercises {total}</p>
