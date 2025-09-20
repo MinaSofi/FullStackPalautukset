@@ -83,21 +83,21 @@ const App = () => {
           }, 5000)
         })
         .catch(() => {
-            setErrorMessage(
-              `${newPerson.name}'s number could not be added to phonebook. Did you type the number correctly?`
-            )
-            setTimeout(() => {
-              setErrorMessage(null)
-            }, 5000)
-          })
+          setErrorMessage(
+            `${newPerson.name}'s number could not be added to phonebook. Did you type the number correctly?`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
     }
   }
 
   const setToNewFilter = (event) => {
-      setNewFilter(event.target.value)
-      newFilter.includes(event.target.value.toLowerCase())
-      ? setShowAll(true)
-      : setShowAll(false)
+    setNewFilter(event.target.value)
+    newFilter.includes(event.target.value.toLowerCase())
+    ? setShowAll(true)
+    : setShowAll(false)
   }
 
   const peopleToShow = showAll
