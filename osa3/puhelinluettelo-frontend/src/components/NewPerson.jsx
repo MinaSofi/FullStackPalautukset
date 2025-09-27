@@ -1,4 +1,4 @@
-const NewPerson = ({ newName, setToNewName, newNumber, setToNewNumber, setToPersons }) => {
+const NewPerson = ({ newName, setToNewName, newNumber, setToNewNumber, setToPeople }) => {
 
   return (
     <form>
@@ -9,7 +9,7 @@ const NewPerson = ({ newName, setToNewName, newNumber, setToNewNumber, setToPers
           number: <input type={"text"} value={newNumber} onChange={setToNewNumber}/>
         </div>
         <div>
-          <button type="submit" onClick={setToPersons}>add</button>
+          <button type="submit" onClick={setToPeople}>add</button>
         </div>
       </form>
   )

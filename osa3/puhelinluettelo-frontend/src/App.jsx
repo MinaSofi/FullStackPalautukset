@@ -9,7 +9,7 @@ import './index.css'
 
 const App = () => {
 
-  const [persons, setPersons] = useState([])
+  const [people, setPeople] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [showAll, setShowAll] = useState(true)
@@ -19,7 +19,7 @@ const App = () => {
 
   useEffect(() => {
     peopleService.getAll().then((initialPeople) => {
-      setPersons(initialPeople)
+      setPeople(initialPeople)
     })
   }, [])
 
@@ -31,19 +31,19 @@ const App = () => {
       setNewNumber(event.target.value)
   }
 
-  const setToPersons = (event) => {
+  const setToPeople = (event) => {
     event.preventDefault()
     const newPerson = {
       name: newName,
       number: newNumber
     }
-    console.log(persons)
-    if(persons.map(person => person.name).includes(newPerson.name)) {
+    console.log(people)
+    if(people.map(person => person.name).includes(newPerson.name)) {
       if(confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
-        const personToUpdate = persons.find(person => person.name === newPerson.name)
+        const personToUpdate = people.find(person => person.name === newPerson.name)
         peopleService
           .update(personToUpdate.id, newPerson).then((returnedPerson) => {
-            setPersons(persons.map(person => person.id !== personToUpdate.id ? person : returnedPerson))
+            setPeople(people.map(person => person.id !== personToUpdate.id ? person : returnedPerson))
             setNewName('')
             setNewNumber('')
           .then(() => {
@@ -70,7 +70,7 @@ const App = () => {
       console.log(newPerson.name + ' is added to phonebook')
       peopleService
         .create(newPerson).then((returnedPerson) => {
-          setPersons(persons.concat(returnedPerson))
+          setPeople(people.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
         })
@@ -101,18 +101,18 @@ const App = () => {
   }
 
   const peopleToShow = showAll
-  ? persons
-  : persons.filter((person) => person.name.toLowerCase().includes(newFilter.toLowerCase()))
+  ? people
+  : people.filter((person) => person.name.toLowerCase().includes(newFilter.toLowerCase()))
 
   const deletePerson = (event) => {
     event.preventDefault()
     console.log(event.target.value + ' event target value when deleting')
-    if(persons.map(person => person.name).includes(event.target.value)) {
+    if(people.map(person => person.name).includes(event.target.value)) {
       if(confirm(`Delete ${event.target.value}?`)) {
-        const personToDelete = persons.find(person => person.name === event.target.value)
+        const personToDelete = people.find(person => person.name === event.target.value)
         peopleService
           .deleteData(personToDelete.id).then(() => {
-            setPersons(persons.filter(person => person.id !== personToDelete.id))
+            setPeople(people.filter(person => person.id !== personToDelete.id))
           })
           .then(() => {
             setNotifMessage(
@@ -145,7 +145,7 @@ const App = () => {
         <Filter newFilter={newFilter} setToNewFilter={setToNewFilter}/>
       </div>
       <h2>Add a new</h2>
-        <NewPerson newName={newName} setToNewName={setToNewName} newNumber={newNumber} setToNewNumber={setToNewNumber} setToPersons={setToPersons}/>
+        <NewPerson newName={newName} setToNewName={setToNewName} newNumber={newNumber} setToNewNumber={setToNewNumber} setToPeople={setToPeople}/>
       <h2>Numbers</h2>
         <People peopleToShow={peopleToShow} deletePerson={deletePerson}/>
     </div>
