@@ -42,11 +42,12 @@ const App = () => {
       if(confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
         const personToUpdate = people.find(person => person.name === newPerson.name)
         peopleService
-          .update(personToUpdate.id, newPerson).then((returnedPerson) => {
+          .update(personToUpdate.id, newPerson)
+          .then((returnedPerson) => {
             setPeople(people.map(person => person.id !== personToUpdate.id ? person : returnedPerson))
             setNewName('')
             setNewNumber('')
-          .then(() => {
+            console.log(`${personToUpdate.name}'s number was updated successfully to phonebook`)
             setNotifMessage(
               `${personToUpdate.name}'s number was updated successfully to phonebook`
             )
@@ -54,7 +55,8 @@ const App = () => {
               setNotifMessage(null)
             }, 5000)
           })
-          .catch(() => {
+          .catch((error) => {
+            console.log(error.response.data)
             setErrorMessage(
               `${personToUpdate.name}'s number could not be updated to phonebook. Did you type the name correctly?`
             )
@@ -62,19 +64,18 @@ const App = () => {
               setErrorMessage(null)
             }, 5000)
           })
-        })
       } else {
         console.log('Error updating person')
       }
     } else {
-      console.log(newPerson.name + ' is added to phonebook')
+      console.log('Trying to add ' + newPerson.name + ' to phonebook')
       peopleService
-        .create(newPerson).then((returnedPerson) => {
+        .create(newPerson)
+        .then((returnedPerson) => {
           setPeople(people.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
-        })
-        .then(() => {
+          console.log(`${newPerson.name} was added successfully to phonebook`)
           setNotifMessage(
             `${newPerson.name} was added successfully to phonebook`
           )
@@ -82,7 +83,8 @@ const App = () => {
             setNotifMessage(null)
           }, 5000)
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error.response.data)
           setErrorMessage(
             `${newPerson.name}'s number could not be added to phonebook. Did you type the number correctly?`
           )
@@ -111,10 +113,10 @@ const App = () => {
       if(confirm(`Delete ${event.target.value}?`)) {
         const personToDelete = people.find(person => person.name === event.target.value)
         peopleService
-          .deleteData(personToDelete.id).then(() => {
-            setPeople(people.filter(person => person.id !== personToDelete.id))
-          })
+          .deleteData(personToDelete.id)
           .then(() => {
+            setPeople(people.filter(person => person.id !== personToDelete.id))
+            console.log(`${personToDelete.name}'s number was deleted successfully from phonebook`)
             setNotifMessage(
               `${personToDelete.name}'s number was deleted successfully from phonebook`
             )
@@ -123,6 +125,7 @@ const App = () => {
             }, 5000)
           })
           .catch(() => {
+            console.log(`${personToDelete.name}'s number could not be deleted from phonebook. It may have already been removed from the server.`)
             setErrorMessage(
               `${personToDelete.name}'s number could not be deleted from phonebook. It may have already been removed from the server.`
             )

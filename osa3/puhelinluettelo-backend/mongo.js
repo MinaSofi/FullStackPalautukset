@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Person = require('./modules/person')
 
 if (process.argv.length < 3) {
   console.log('Give password as argument')
@@ -11,13 +12,6 @@ const url = `mongodb+srv://minna:${password}@cluster0.aor3tzt.mongodb.net/?retry
 
 mongoose.set('strictQuery', false)
 mongoose.connect(url)
-
-const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
-})
-
-const Person = mongoose.model('Person', personSchema)
 
 const person = new Person({
     name: process.argv[3],
