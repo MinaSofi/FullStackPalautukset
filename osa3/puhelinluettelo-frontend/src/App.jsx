@@ -24,11 +24,11 @@ const App = () => {
   }, [])
 
   const setToNewName = (event) => {
-      setNewName(event.target.value)
+    setNewName(event.target.value)
   }
 
   const setToNewNumber = (event) => {
-      setNewNumber(event.target.value)
+    setNewNumber(event.target.value)
   }
 
   const setToPeople = (event) => {
@@ -102,9 +102,15 @@ const App = () => {
     : setShowAll(true)
   }
 
-  const peopleToShow = showAll
-  ? people
-  : people.filter((person) => person.name.toLowerCase().includes(newFilter.toLowerCase()))
+  let peopleToShow = []
+
+  if(!showAll) {
+    peopleToShow = people.filter((person) => person.name.toLowerCase().includes(newFilter.toLowerCase()))
+    console.log(peopleToShow + ' people to show when filtering')
+  } else {
+    peopleToShow = people
+    console.log(peopleToShow + ' people to show when not filtering')
+  }
 
   const deletePerson = (event) => {
     event.preventDefault()
