@@ -2,8 +2,9 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "VS code rest client is a handy tool",
-  "author": "Minna",
-  "url": "https://marketplace.visualstudio.com/items?itemName=humao.rest-client",
-  "likes": 5
+  "_id": "5a422bc61b54a676234d17fc",
+  "title": "Type wars",
+  "author": "Robert C. Martin",
+  "url": "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
+  "likes": 2
 }
