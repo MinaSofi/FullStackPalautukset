@@ -17,3 +17,26 @@
     border-radius: 5px;
     padding: 10px;
 }
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    border: 5px solid lightgrey;
+}
+
+li {
+    padding: 5px;
+    border-bottom: 5px solid lightgrey;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+button {
+    margin-left: 2px;
+}
+
+p {
+    margin: 2px;
+}
