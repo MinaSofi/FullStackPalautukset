@@ -19,7 +19,7 @@ const Blog = ({ blog, user, updateShownDetails, removeBlog }) => {
   }
 
   return (
-    <div>
+    <div className="bloglist">
       <div style={viewMore}>
         {blog.title} {blog.author}
         <button type="submit" onClick={toggleVisibility}>View</button>

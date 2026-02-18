@@ -9,7 +9,7 @@
     "test": "cross-env NODE_ENV=test node --test",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "start:test": "cross-env NODE_ENV=test node --watch index.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

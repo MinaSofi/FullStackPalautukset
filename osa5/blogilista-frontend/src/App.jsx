@@ -46,26 +46,27 @@ const App = () => {
       setMessage(`Welcome ${user.name}!`)
       setTimeout(() => {
         setMessage(null)
-      }, 5000)
+      }, 3000)
     } catch (error) {
       setMessage('Wrong credentials!')
       console.log(message, error)
       setTimeout(() => {
         setMessage(null)
-      }, 5000)
+      }, 3000)
     }
   }
 
   const logout = () => {
+    window.localStorage.removeItem('loggedBlogAppUser')
+    blogService.setToken(null)
+    setUser(null)
     setMessage('Logged out successfully')
     setTimeout(() => {
       setMessage(null)
-      setUser(null)
-    }, 5000)
-    window.localStorage.removeItem('loggedBlogAppUser')
+    }, 2000)
   }
 
-  const addBlog = async blogObject => {
+  const addBlog = async (blogObject) => {
     try {
       blogFormRef.current.toggleVisibility()
       const returnedBlog = await blogService.create(blogObject)
@@ -73,13 +74,13 @@ const App = () => {
       setMessage(`A new blog "${returnedBlog.title}" by ${returnedBlog.author} added successfully!`)
       setTimeout(() => {
         setMessage(null)
-      }, 5000)
+      }, 3000)
     } catch (error) {
       setMessage('Error adding blog')
       console.log(message, error)
       setTimeout(() => {
         setMessage(null)
-      }, 5000)
+      }, 3000)
     }
   }
 
@@ -105,12 +106,12 @@ const App = () => {
       console.log(message, error)
       setTimeout(() => {
         setMessage(null)
-      }, 5000)
+      }, 3000)
     }
   }
 
   const sortBlogs = (blogs) => {
-    return blogs.sort((a, b) => b.likes - a.likes)
+    return [...blogs].sort((a, b) => b.likes - a.likes)
   }
 
   const removeBlog = async (id) => {
@@ -121,13 +122,13 @@ const App = () => {
       setMessage('Blog removed successfully')
       setTimeout(() => {
         setMessage(null)
-      }, 5000)
+      }, 3000)
     } catch (error) {
       setMessage('Error removing blog')
       console.log(message, error)
       setTimeout(() => {
         setMessage(null)
-      }, 5000)
+      }, 3000)
     }
   }
 
